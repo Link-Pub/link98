@@ -132,4 +132,31 @@
 .fileList{
 	width: 498px;
 	margin: auto;
+	position:relative;
+}
+.file-panel{
+	position: absolute;
+    height: 0;
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#80000000', endColorstr='#80000000')\0;
+    background: rgba( 0, 0, 0, 0.5 );
+    width: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: 300;
+}
+.file-panel span{
+	font-size: 24px;
+}
+.trigger:hover .file-panel{
+	position: absolute;
+    height: 50px;
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#80000000', endColorstr='#80000000')\0;
+    background: rgba( 0, 0, 0, 0.5 );
+    width: 98%;
+    top: 5px;
+    left:5px;
+    right:5px;
+    overflow: hidden;
+    z-index: 300;
 }

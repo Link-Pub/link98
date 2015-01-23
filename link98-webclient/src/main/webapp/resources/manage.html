@@ -42,19 +42,19 @@
 
 					// 文件接收服务端。
 					//server: 'http://webuploader.duapp.com/server/fileupload.php',
-					dnd :'.m-photo-layout',
+					dnd: '.m-photo-layout',
 					paste: document.body,
 					disableGlobalDnd: true,
 					//设置缩略图，高度和宽度可以用像素或百分比（0-1之间则表明是百分比）
-					thumb:{
+					thumb: {
 						width: 1,
-						height:1,
+						height: 1,
 						allowMagnify: false
 					},
 					//图片总数，超出则不允许上传
-					fileNumLimit : 12,
+					fileNumLimit: 12,
 					//单个图片最大不得超过1mb=1048576kb
-					fileSingleSizeLimit : 1048576,
+					fileSingleSizeLimit: 1048576,
 					// 选择文件的按钮。可选。
 					// 内部根据当前运行是创建，可能是input元素，也可能是flash.
 					pick: '#webupload',
@@ -69,9 +69,13 @@
 				// 当有文件添加进来的时候
 				uploader.on('fileQueued', function(file) {
 					var $li = $(
-							'<div id="' + file.id + '" class="file-item thumbnail">' +
-							'<img>' +'</div>'
+							'<div id="' + file.id + '" class="file-item thumbnail trigger">' +
+							'<img>' + '</div>'
 						),
+						$btns = $('<div class="file-panel">' +
+							'<span class="glyphicon glyphicon-trash"></span>' +
+							'<span class="glyphicon glyphicon-chevron-right"> </span>' +
+							'<span class="glyphicon glyphicon-chevron-left"> </span></div>').appendTo($li),
 						$img = $li.find('img');
 
 
@@ -89,16 +93,25 @@
 
 						$img.attr('src', src);
 					});
-					
+
 					var obj = document.getElementById("fileList");
 					var haveDiv = obj.getElementsByTagName("div");
-					if(haveDiv.length>0){
-						$("#for-m-photo-add").css({"display":"none"});
-						if(haveDiv.length>11){
-							$(".m-photo-add").css({"display":"none"});
+					if (haveDiv.length > 0) {
+						$("#for-m-photo-add").css({
+							"display": "none"
+						});
+						if (haveDiv.length > 11) {
+							$(".m-photo-add").css({
+								"display": "none"
+							});
 						}
-						$(".m-photo-add").css({"height":"50px"});
-						$("#selImg").css({"margin":"0 auto","padding":"15px 0px"});
+						$(".m-photo-add").css({
+							"height": "50px"
+						});
+						$("#selImg").css({
+							"margin": "0 auto",
+							"padding": "15px 0px"
+						});
 					}
 				});
 			});
