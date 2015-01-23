@@ -15,7 +15,9 @@ import me.link98.core.utils.mybatis.page.CountParameter;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author fengmengyue
@@ -30,6 +32,11 @@ public abstract class AbstractDao<T extends AbstractBean> extends SqlSessionDaoS
 	private static final String SELECT = ".select";
 	
 	protected abstract String getNameSapce();
+	
+	@Autowired
+	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+		super.setSqlSessionFactory(sqlSessionFactory);
+	}
 	
 	@Override
 	public void insert(T entity) {
