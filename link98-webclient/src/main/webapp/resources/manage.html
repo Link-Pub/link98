@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>link pub</title>
+
+		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+		<meta http-equiv="description" content="this is my page">
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+		<link rel="stylesheet" type="text/css" href="js/dist/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="css/manage.css">
+		<link rel="stylesheet" type="text/css" href="css/jquery.Jcrop.css">
+		<link rel="stylesheet" type="text/css" href="js/webuploader-0.1.5/webuploader.css">
+
+		<script src="js/ueditor/ueditor.config.js"></script>
+		<script src="js/ueditor/ueditor.all.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+		<script src="js/jquery.js"></script>
+		<script src="js/dist/js/bootstrap.js"></script>
+		<script src="js/webuploader-0.1.5/webuploader.js"></script>
+		<script>
+			var diaryUE = UE.getEditor("diaryEditor");
+			var essayUE = UE.getEditor("essayEditor");
+			$(document).ready(function() {
+				//日记窗显示和隐藏
+				diaryShowAndHide();
+				//图片窗隐藏
+				photoShowAndHide();
+				//随笔窗隐藏
+				essayShowAndHide();
+
+				//webuploader
+				var uploader = WebUploader.create({
+
+					// 选完文件后，是否自动上传。
+					auto: false,
+
+					// swf文件路径
+					//swf: 'js/webuploader-0.1.5/Uploader.swf',
+
+					// 文件接收服务端。
+					//server: 'http://webuploader.duapp.com/server/fileupload.php',
+					dnd :'.m-photo-layout',
+					paste: document.body,
+					disableGlobalDnd: true,
+					//设置缩略图，高度和宽度可以用像素或百分比（0-1之间则表明是百分比）
+					thumb:{
+						width: 1,
+						height:1,
+						allowMagnify: false
+					},
+					//图片总数，超出则不允许上传
+					fileNumLimit : 12,
+					//单个图片最大不得超过1mb=1048576kb
+					fileSingleSizeLimit : 1048576,
+					// 选择文件的按钮。可选。
+					// 内部根据当前运行是创建，可能是input元素，也可能是flash.
+					pick: '#webupload',
+
+					// 只允许选择图片文件。
+					accept: {
+						title: 'Images',
+						extensions: 'gif,jpg,jpeg,bmp,png',
+						mimeTypes: 'image/*'
+					}
+				});
+				// 当有文件添加进来的时候
+				uploader.on('fileQueued', function(file) {
+					var $li = $(
+							'<div id="' + file.id + '" class="file-item thumbnail">' +
+							'<img>' +'</div>'
+						),
+						$img = $li.find('img');
+
+
+					// $list为容器jQuery实例
+					$(".fileList").append($li);
+
+					// 创建缩略图
+					// 如果为非图片文件，可以不用调用此方法。
+					// thumbnailWidth x thumbnailHeight 为 100 x 100
+					uploader.makeThumb(file, function(error, src) {
+						if (error) {
+							$img.replaceWith('<span>不能预览</span>');
+							return;
+						}
+
+						$img.attr('src', src);
+					});
+					
+					var obj = document.getElementById("fileList");
+					var haveDiv = obj.getElementsByTagName("div");
+					if(haveDiv.length>0){
+						$("#for-m-photo-add").css({"display":"none"});
+						if(haveDiv.length>11){
+							$(".m-photo-add").css({"display":"none"});
+						}
+						$(".m-photo-add").css({"height":"50px"});
+						$("#selImg").css({"margin":"0 auto","padding":"15px 0px"});
+					}
+				});
+			});
+
+			function diaryShowAndHide() {
+				$(".diary").click(function() {
+					$(".cover").show();
+					$(".m-diary").show(300);
+				});
+			}
+
+			function photoShowAndHide() {
+				$(".photo").click(function() {
+					$(".cover").show();
+					$(".m-photo").show(300);
+				});
+			}
+
+			function essayShowAndHide() {
+				$(".essay").click(function() {
+					$(".cover").show();
+					$(".m-essay").show(300);
+				});
+			}
+
+			function giveUp(i) {
+				$("#giveUpModal").modal("show");
+				$("#giveUpSubmit").click(function() {
+					if (i == 1) {
+						$("#m-diary-title").val("");
+						diaryUE.execCommand('cleardoc');
+						$("#giveUpModal").modal("hide");
+						$(".m-diary").hide();
+						$(".cover").hide();
+					} else if (i == 2) {
+						window.location.reload();
+					} else {
+						essayUE.execCommand('cleardoc');
+						$("#giveUpModal").modal("hide");
+						$(".m-essay").hide();
+						$(".cover").hide();
+					}
+				});
+			}
+		</script>
+	</head>
+
+	<body style="background-color: #15171b;">
+		<!-- 	<div class="navbar navbar-inverse" role="navigation">
+		<div class="container" style="width:900px;">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#"> <img alt="Brand"
+					src="image/baselogo.png" width="70px"> </a>
+			</div>
+		</div>
+	</div> -->
+		<div class="container" style="width:900px">
+			<div class="m-nav">
+				<ul>
+					<li class="user">
+						<img class="user_photo" src="image/hd1.png" width="217px">
+					</li>
+					<li class="diary" style="color: #462f62">
+						<div class="icon-font-div">
+							<span class="glyphicon glyphicon-list-alt icon-font"></span>
+						</div>
+						<label class="label-font">diary</label>
+					</li>
+					<li class="photo" style="color: #3b93cf">
+						<div class="icon-font-div">
+							<span class="glyphicon glyphicon-camera icon-font"></span>
+						</div>
+						<label class="label-font">photo</label>
+					</li>
+					<li class="essay" style="color: #12b98f">
+						<div class="icon-font-div">
+							<span class="glyphicon glyphicon-pencil icon-font"></span>
+						</div>
+						<label class="label-font">essay</label>
+					</li>
+				</ul>
+			</div>
+			<div class="cover"></div>
+			<div class="m-diary">
+				<div class="m-diary-layout">
+					<form action="">
+						<div class="form-group">
+							<label for="m-diary-title">标题</label>
+							<input type="text" class="form-control" id="m-diary-title" placeholder="请输入标题">
+						</div>
+						<div class="form-group">
+							<label for="diaryEditor">内容</label>
+							<script id="diaryEditor" type="text/plain" style="width:100%;height:275px;"></script>
+						</div>
+						<div class="div-btn-class0">
+							<button type="submit" class="btn btn-primary btn-class1">提&nbsp;&nbsp;&nbsp;&nbsp;交</button>
+							<button type="button" class="btn btn-danger btn-class2" id="diaryGiveUp" onClick="giveUp(1)">放&nbsp;&nbsp;&nbsp;弃</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="m-photo" style="width: 600px;">
+				<div class="m-photo-layout">
+					<form action="">
+						<div id="fileList" class="fileList"></div>
+						<div class="m-photo-add">
+							<div id="selImg">
+								<label id="webupload">点击选择图片</label>
+							</div>
+							<label id="for-m-photo-add" class="label-font1">或将照片拖到这里，单次最多可选12张</label>
+						</div>
+						<div class="div-btn-class1">
+							<button type="submit" class="btn btn-primary btn-class1">提&nbsp;&nbsp;&nbsp;&nbsp;交</button>
+							<button type="button" class="btn btn-danger btn-class2" id="photoGiveUp" onClick="giveUp(2)">放&nbsp;&nbsp;&nbsp;弃</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="m-essay" style="width: 600px;">
+				<div class="m-essay-layout">
+					<form action="">
+						<div class="form-group">
+							<label for="essayEditor">随便写点什么...</label>
+							<script id="essayEditor" type="text/plain" style="width:100%;height:100px;"></script>
+						</div>
+						<div class="div-btn-class0">
+							<button type="submit" class="btn btn-primary btn-class1">提&nbsp;&nbsp;&nbsp;&nbsp;交</button>
+							<button type="button" class="btn btn-danger btn-class2" id="essayGiveUp" onClick="giveUp(3)">放&nbsp;&nbsp;&nbsp;弃</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="giveUpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="overflow: hidden; ">
+			<div class="modal-dialog" style="padding-top:15%;width: 440px;">
+				<div class="modal-content">
+					<div class="alert alert-warning" style="margin: 0;">
+						<strong>提示！</strong>放弃后会丢失所有已加载内容！
+						<div style="margin-top:0;padding: 15px;">
+							<button type="button" id="giveUpSubmit" class="btn btn-danger">确定</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
