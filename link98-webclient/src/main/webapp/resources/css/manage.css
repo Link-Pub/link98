@@ -129,11 +129,22 @@
 	filter: alpha(opacity = 70);
 	z-index:900; position:fixed!important; position:absolute;
 }
-.fileList{
+.queueList{
 	width: 498px;
+	height:auto;
 	margin: auto;
 	position:relative;
 }
+.filelist{
+}
+.filelist img{
+	width: 100%;
+}
+/*.trigger{
+	position:relative;
+	width: auto;
+}*/
+
 .file-panel{
 	position: absolute;
     height: 0;
@@ -145,14 +156,20 @@
     overflow: hidden;
     z-index: 300;
     text-align:right;
+    transition: all .3s ease;
 }
 .file-panel span{
-	font-size: 14px;
+	font-size: 20px;
 	color:white;
 	cursor: pointer;
+	margin: 5px 10px;	
 }
-.trigger:hover div{
-    height: 20px;
+.imgWrap{
+	position: relative;
+}
+/*.file-panel-hover{
+	position: absolute;
+	height: 33px;
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#80000000', endColorstr='#80000000')\0;
     background: rgba( 0, 0, 0, 0.5 );
     width: 98%;
@@ -161,4 +178,22 @@
     right:5px;
     overflow: hidden;
     z-index: 300;
+}*/
+.queueList ul {
+	margin: 0px auto;
+	padding: 0;
 }
+
+.queueList ul li {
+	position: relative;
+	list-style-type: none;
+	display: inline-block;
+	padding: 0;
+	width: 496px;
+}
+#m-photo-desc{
+	width: 496px;
+	margin: 0 auto;
+	margin-top: 10px;
+}
+
