@@ -73,9 +73,8 @@
 							'<img>' + '</div>'
 						),
 						$btns = $('<div class="file-panel">' +
-							'<span class="glyphicon glyphicon-trash"></span>' +
-							'<span class="glyphicon glyphicon-chevron-right"> </span>' +
-							'<span class="glyphicon glyphicon-chevron-left"> </span></div>').appendTo($li),
+							'<span class="glyphicon glyphicon-repeat"> </span>' +
+							'<span class="glyphicon glyphicon-remove"></span></div>').appendTo($li),
 						$img = $li.find('img');
 
 
@@ -144,15 +143,15 @@
 						$("#m-diary-title").val("");
 						diaryUE.execCommand('cleardoc');
 						$("#giveUpModal").modal("hide");
-						$(".m-diary").hide();
-						$(".cover").hide();
+						$(".m-diary").hide(300);
+						$(".cover").hide(300);
 					} else if (i == 2) {
 						window.location.reload();
 					} else {
 						essayUE.execCommand('cleardoc');
 						$("#giveUpModal").modal("hide");
-						$(".m-essay").hide();
-						$(".cover").hide();
+						$(".m-essay").hide(300);
+						$(".cover").hide(300);
 					}
 				});
 			}

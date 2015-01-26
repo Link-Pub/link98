@@ -144,13 +144,15 @@
     left: 0;
     overflow: hidden;
     z-index: 300;
+    text-align:right;
 }
 .file-panel span{
-	font-size: 24px;
+	font-size: 14px;
+	color:white;
+	cursor: pointer;
 }
-.trigger:hover .file-panel{
-	position: absolute;
-    height: 50px;
+.trigger:hover div{
+    height: 20px;
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#80000000', endColorstr='#80000000')\0;
     background: rgba( 0, 0, 0, 0.5 );
     width: 98%;
