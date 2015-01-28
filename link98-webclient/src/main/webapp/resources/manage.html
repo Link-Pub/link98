@@ -20,9 +20,11 @@
 		<script src="js/jquery.js"></script>
 		<script src="js/dist/js/bootstrap.js"></script>
 		<script src="js/webuploader-0.1.5/webuploader.js"></script>
+		<script src="js/manage.js"></script>
 		<script>
 			var diaryUE = UE.getEditor("diaryEditor");
 			var essayUE = UE.getEditor("essayEditor");
+
 			$(document).ready(function() {
 				//日记窗显示和隐藏
 				diaryShowAndHide();
@@ -30,89 +32,6 @@
 				photoShowAndHide();
 				//随笔窗隐藏
 				essayShowAndHide();
-
-				//webuploader
-				var uploader = WebUploader.create({
-
-					// 选完文件后，是否自动上传。
-					auto: false,
-
-					// swf文件路径
-					//swf: 'js/webuploader-0.1.5/Uploader.swf',
-
-					// 文件接收服务端。
-					//server: 'http://webuploader.duapp.com/server/fileupload.php',
-					dnd: '.m-photo-layout',
-					paste: document.body,
-					disableGlobalDnd: true,
-					//设置缩略图，高度和宽度可以用像素或百分比（0-1之间则表明是百分比）
-					thumb: {
-						width: 1,
-						height: 1,
-						allowMagnify: false
-					},
-					//图片总数，超出则不允许上传
-					fileNumLimit: 12,
-					//单个图片最大不得超过1mb=1048576kb
-					fileSingleSizeLimit: 1048576,
-					// 选择文件的按钮。可选。
-					// 内部根据当前运行是创建，可能是input元素，也可能是flash.
-					pick: '#webupload',
-
-					// 只允许选择图片文件。
-					accept: {
-						title: 'Images',
-						extensions: 'gif,jpg,jpeg,bmp,png',
-						mimeTypes: 'image/*'
-					}
-				});
-				// 当有文件添加进来的时候
-				uploader.on('fileQueued', function(file) {
-					var $li = $(
-							'<div id="' + file.id + '" class="file-item thumbnail trigger">' +
-							'<img>' + '</div>'
-						),
-						$btns = $('<div class="file-panel">' +
-							'<span class="glyphicon glyphicon-repeat"> </span>' +
-							'<span class="glyphicon glyphicon-remove"></span></div>').appendTo($li),
-						$img = $li.find('img');
-
-
-					// $list为容器jQuery实例
-					$(".fileList").append($li);
-
-					// 创建缩略图
-					// 如果为非图片文件，可以不用调用此方法。
-					// thumbnailWidth x thumbnailHeight 为 100 x 100
-					uploader.makeThumb(file, function(error, src) {
-						if (error) {
-							$img.replaceWith('<span>不能预览</span>');
-							return;
-						}
-
-						$img.attr('src', src);
-					});
-
-					var obj = document.getElementById("fileList");
-					var haveDiv = obj.getElementsByTagName("div");
-					if (haveDiv.length > 0) {
-						$("#for-m-photo-add").css({
-							"display": "none"
-						});
-						if (haveDiv.length > 11) {
-							$(".m-photo-add").css({
-								"display": "none"
-							});
-						}
-						$(".m-photo-add").css({
-							"height": "50px"
-						});
-						$("#selImg").css({
-							"margin": "0 auto",
-							"padding": "15px 0px"
-						});
-					}
-				});
 			});
 
 			function diaryShowAndHide() {
@@ -215,15 +134,34 @@
 			<div class="m-photo" style="width: 600px;">
 				<div class="m-photo-layout">
 					<form action="">
-						<div id="fileList" class="fileList"></div>
+						<div id="fileList" class="queueList"></div>
 						<div class="m-photo-add">
 							<div id="selImg">
 								<label id="webupload">点击选择图片</label>
 							</div>
-							<label id="for-m-photo-add" class="label-font1">或将照片拖到这里，单次最多可选12张</label>
+							<label id="for-m-photo-add" class="label-font1">或将照片拖到这里，单次最多可选10张</label>
+						</div>
+						<!--
+                        	作者：lynk
+                        	时间：2015-01-26
+                        	描述：隐藏
+                        -->
+						<div class="statusBar" style="display:none;">
+							<div class="progress">
+								<span class="text">0%</span>
+								<span class="percentage"></span>
+							</div>
+							<div class="info"></div>
+							<div class="btns">
+								<div id="filePicker2"></div>
+								<div class="uploadBtn">开始上传</div>
+							</div>
+						</div>
+						<div>
+							<input type="text" class="form-control" id="m-photo-desc" placeholder="描述">
 						</div>
 						<div class="div-btn-class1">
-							<button type="submit" class="btn btn-primary btn-class1">提&nbsp;&nbsp;&nbsp;&nbsp;交</button>
+							<button type="button" class="btn btn-primary btn-class1 uploadBtn">提&nbsp;&nbsp;&nbsp;&nbsp;交</button>
 							<button type="button" class="btn btn-danger btn-class2" id="photoGiveUp" onClick="giveUp(2)">放&nbsp;&nbsp;&nbsp;弃</button>
 						</div>
 					</form>
