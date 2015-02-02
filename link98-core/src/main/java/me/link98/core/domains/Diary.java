@@ -1,11 +1,16 @@
 package me.link98.core.domains;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  * 用户日志内容
  * @author Lynk-Lee
  *
  */
 @SuppressWarnings("serial")
+@Entity
+@Table(name="t_diary")
 public class Diary extends AbstractBean{
 	
 	/**

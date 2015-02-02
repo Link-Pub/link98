@@ -3,12 +3,17 @@ package me.link98.core.domains;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  * 用户行为记录
  * @author Lynk-Lee
  *
  */
 @SuppressWarnings("serial")
+@Entity
+@Table(name="t_user_behavior")
 public class UserBehavior extends AbstractBean{
 	
 	/**

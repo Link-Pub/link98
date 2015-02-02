@@ -1,10 +1,16 @@
 package me.link98.core.domains;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  * 用户信息
  * @author Lynk-Lee
  *
  */
 @SuppressWarnings("serial")
+@Entity
+@Table(name="t_users")
 public class Users extends AbstractBean{
 	
 	/**

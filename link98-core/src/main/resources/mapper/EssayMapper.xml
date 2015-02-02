@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.link98.core.domains.Essay">
+	<sql id="ddl">
+		CREATE TABLE t_essay (
+			f_id varchar(40) not null,
+			f_id varchar(40),
+		  PRIMARY KEY (f_id)
+		)
+	</sql>
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="GENERATED_KEY" parameterType="me.link98.core.domains.Essay">
+			INSERT INTO t_essay (
+				f_id
+			)
+			values
+			(
+				#{id,jdbcType=VARCHAR}
+			)
+	</insert>
+	<update id="update" parameterType="me.link98.core.domains.Essay">
+		UPDATE t_essay
+		SET 
+			f_id = #{id,jdbcType=VARCHAR}
+		WHERE f_id = #{id}
+	</update>
+	<delete id="delete" parameterType="int">
+		DELETE FROM t_essay WHERE f_id = #{id}
+	</delete>
+	<sql id="selectSql">
+		SELECT 
+			essay.f_id AS "id"
+	</sql>
+	<sql id="fromSql">
+		FROM t_essay AS essay
+	</sql>
+	<sql id="whereSql">
+		<where>
+				<if test="id != null  and id != ''">
+				AND essay.f_id = #{id}
+				</if>
+		</where>
+	</sql>
+	<select id="selectById" parameterType="int" resultType="me.link98.core.domains.Essay">
+		<include refid="selectSql"/>
+		<include refid="fromSql"/>
+		WHERE essay.f_id = #{id}
+	</select>
+	<select id="select" parameterType="me.link98.core.domains.Essay" resultType="me.link98.core.domains.Essay">
+		<include refid="selectSql"/>
+		<include refid="fromSql"/>
+		<include refid="whereSql"/>
+		<if test="orderByColumns != null and orderByColumns != ''">
+			ORDER BY ${orderByColumns}
+		</if>
+	</select>
+	<select id="selectCount" parameterType="me.link98.core.domains.Essay" resultType="int">
+		SELECT 
+		COUNT(1)
+		<include refid="fromSql"/>
+		<include refid="whereSql"/>
+	</select>
+</mapper>

@@ -55,7 +55,7 @@ public class CodeGenerator {
 	private static final String TEMPLATE_ROOT = PRJ_ROOT + "\\src\\main\\resources\\template\\";
 	
 	public static void main(String[] args) throws IOException, TemplateException {
-		Class<?> clazz = UserBehavior.class;//这里填写要生成的实体类名
+		Class<?> clazz = Essay.class;//这里填写要生成的实体类名
 		generate(clazz);
 	}
 	
