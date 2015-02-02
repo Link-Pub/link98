@@ -26,6 +26,11 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import me.link98.core.domains.AbstractBean;
+import me.link98.core.domains.Diary;
+import me.link98.core.domains.Essay;
+import me.link98.core.domains.Photo;
+import me.link98.core.domains.UserBehavior;
+import me.link98.core.domains.Users;
 import me.link98.core.domains.common.UploadFile;
 
 import org.apache.commons.lang.StringUtils;
@@ -50,7 +55,7 @@ public class CodeGenerator {
 	private static final String TEMPLATE_ROOT = PRJ_ROOT + "\\src\\main\\resources\\template\\";
 	
 	public static void main(String[] args) throws IOException, TemplateException {
-		Class<?> clazz = UploadFile.class;//这里填写要生成的实体类名
+		Class<?> clazz = UserBehavior.class;//这里填写要生成的实体类名
 		generate(clazz);
 	}
 	
