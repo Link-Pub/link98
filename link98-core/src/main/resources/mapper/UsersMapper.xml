@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.link98.core.domains.Users">
+	<sql id="ddl">
+		CREATE TABLE t_users (
+			f_id varchar(40) not null,
+			f_id varchar(40),
+		  PRIMARY KEY (f_id)
+		)
+	</sql>
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="GENERATED_KEY" parameterType="me.link98.core.domains.Users">
+			INSERT INTO t_users (
+				f_id
+			)
+			values
+			(
+				#{id,jdbcType=VARCHAR}
+			)
+	</insert>
+	<update id="update" parameterType="me.link98.core.domains.Users">
+		UPDATE t_users
+		SET 
+			f_id = #{id,jdbcType=VARCHAR}
+		WHERE f_id = #{id}
+	</update>
+	<delete id="delete" parameterType="int">
+		DELETE FROM t_users WHERE f_id = #{id}
+	</delete>
+	<sql id="selectSql">
+		SELECT 
+			users.f_id AS "id"
+	</sql>
+	<sql id="fromSql">
+		FROM t_users AS users
+	</sql>
+	<sql id="whereSql">
+		<where>
+				<if test="id != null  and id != ''">
+				AND users.f_id = #{id}
+				</if>
+		</where>
+	</sql>
+	<select id="selectById" parameterType="int" resultType="me.link98.core.domains.Users">
+		<include refid="selectSql"/>
+		<include refid="fromSql"/>
+		WHERE users.f_id = #{id}
+	</select>
+	<select id="select" parameterType="me.link98.core.domains.Users" resultType="me.link98.core.domains.Users">
+		<include refid="selectSql"/>
+		<include refid="fromSql"/>
+		<include refid="whereSql"/>
+		<if test="orderByColumns != null and orderByColumns != ''">
+			ORDER BY ${orderByColumns}
+		</if>
+	</select>
+	<select id="selectCount" parameterType="me.link98.core.domains.Users" resultType="int">
+		SELECT 
+		COUNT(1)
+		<include refid="fromSql"/>
+		<include refid="whereSql"/>
+	</select>
+</mapper>
